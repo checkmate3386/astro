@@ -197,6 +197,38 @@ class EventRegistrationTests(TestCase):
         self.assertContains(single_response, 'data-slide-index="0"')
         self.assertNotContains(single_response, "test-key-not-a-url")
 
+    def test_home_carousel_hides_inactive_events(self):
+        events = [
+            {
+                "id": "first",
+                "titre": "Première soirée",
+                "description": "Première description",
+                "details": [],
+                "limite": 2,
+            },
+            {
+                "id": "second",
+                "titre": "Deuxième soirée",
+                "description": "Deuxième description",
+                "details": [],
+                "limite": 2,
+            },
+        ]
+        self.events_path.write_text(
+            json.dumps(events, ensure_ascii=False),
+            encoding="utf-8",
+        )
+
+        response = self.client.get("/")
+        html = response.content.decode()
+
+        self.assertRegex(html, r'<a class="slide is-active"\s+href="/soirees/premiere-soiree/"')
+        self.assertRegex(
+            html,
+            r'<a class="slide"\s+href="/soirees/deuxieme-soiree/"\s+hidden\b',
+        )
+        self.assertContains(response, 'data-slide-index="1"')
+
     def test_removed_event_page_disappears_but_registration_is_retained(self):
         self.client.post(
             self.event_url,

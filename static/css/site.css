@@ -34,6 +34,7 @@ h2 { font-size: clamp(1.5rem, 5vw, 2.2rem); }
 .intro > p:last-child, .lead { color: var(--muted); font-size: 1.08rem; }
 .carousel { position: relative; overflow: hidden; border: 1px solid var(--line); border-radius: 1rem; background: radial-gradient(ellipse at 85% 10%, #1c3d61 0, transparent 48%), var(--panel); }
 .slide { display: block; min-height: 330px; padding: clamp(1.5rem, 6vw, 3.5rem); color: var(--text); text-decoration: none; }
+.slide[hidden] { display: none; }
 .slide h2 { margin-bottom: .7rem; color: var(--gold); }
 .slide > p { max-width: 650px; color: var(--muted); }
 .detail-list { display: grid; gap: .35rem; margin: 1.2rem 0; padding-left: 1.25rem; color: var(--muted); }
