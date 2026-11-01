@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}Soirées du club d’astronomie{% endblock %}
+{% block content %}
+<section class="intro">
+  <p class="eyebrow">Observer · apprendre · partager</p>
+  <h1>Les soirées du club</h1>
+  <p>Retrouvez les prochaines rencontres et réservez vos places pour observer le ciel ensemble.</p>
+</section>
+{% if events %}
+  <section class="carousel" aria-label="Prochaines soirées">
+    <div class="carousel-track" aria-live="polite">
+      {% for event in events %}
+        <a class="slide{% if forloop.first %} is-active{% endif %}"
+           href="{% url 'event-detail' event.slug %}"
+           {% if not forloop.first %}hidden{% endif %}
+           aria-label="Découvrir {{ event.titre }}">
+          <span class="eyebrow">Prochaine rencontre</span>
+          <h2>{{ event.titre }}</h2>
+          <p>{{ event.description }}</p>
+          {% if event.details %}
+            <ul class="detail-list">
+              {% for detail in event.details %}<li>{{ detail }}</li>{% endfor %}
+            </ul>
+          {% endif %}
+          <span class="text-link">Découvrir la soirée <span aria-hidden="true">→</span></span>
+        </a>
+      {% endfor %}
+    </div>
+    <div class="carousel-dots" aria-label="Choisir une soirée">
+      {% for event in events %}
+        <button type="button" class="carousel-dot{% if forloop.first %} is-active{% endif %}"
+                aria-label="Afficher {{ event.titre }}"
+                aria-pressed="{% if forloop.first %}true{% else %}false{% endif %}"
+                data-slide-index="{{ forloop.counter0 }}"></button>
+      {% endfor %}
+    </div>
+  </section>
+{% else %}
+  <section class="empty-state">
+    <h2>Aucune soirée programmée</h2>
+    <p>Les prochaines dates seront publiées ici.</p>
+  </section>
+{% endif %}
+{% endblock %}

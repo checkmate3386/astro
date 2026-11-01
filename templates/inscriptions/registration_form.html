@@ -1,0 +1,75 @@
+<form method="post" class="form-card registration-form" data-registration-form>
+  {% csrf_token %}
+  <input type="hidden" name="action" value="{{ form_action }}">
+  {% if registration %}
+    <input type="hidden" name="original_email" value="{{ registration.email }}">
+  {% endif %}
+
+  {% if form.non_field_errors %}
+    <div class="form-errors" role="alert">{{ form.non_field_errors }}</div>
+  {% endif %}
+  <div class="form-grid">
+    <div class="field">
+      <label for="{{ form.email.id_for_label }}">{{ form.email.label }}</label>
+      {{ form.email }}
+      {{ form.email.errors }}
+    </div>
+    <div class="field">
+      <label for="{{ form.email_confirm.id_for_label }}">{{ form.email_confirm.label }}</label>
+      {{ form.email_confirm }}
+      {{ form.email_confirm.errors }}
+    </div>
+    <div class="field">
+      <label for="{{ form.people_count.id_for_label }}">{{ form.people_count.label }}</label>
+      {{ form.people_count }}
+      {{ form.people_count.errors }}
+    </div>
+  </div>
+
+  <fieldset class="participant-list">
+    <legend>Participants</legend>
+    {% for row in participant_rows %}
+      <section class="participant-card" data-participant data-index="{{ forloop.counter0 }}">
+        <h3>Participant {{ forloop.counter }}</h3>
+        {% if form_action == "update" %}
+          <button type="button" class="remove-participant" data-remove-participant>
+            Supprimer ce participant
+          </button>
+        {% endif %}
+        <div class="form-grid">
+          <div class="field">
+            <label for="{{ row.first_name.id_for_label }}">{{ row.first_name.label }}</label>
+            {{ row.first_name }}
+            {{ row.first_name.errors }}
+          </div>
+          <div class="field">
+            <label for="{{ row.last_name.id_for_label }}">{{ row.last_name.label }}</label>
+            {{ row.last_name }}
+            {{ row.last_name.errors }}
+          </div>
+        </div>
+        <div class="minor-row">
+          <label>{{ row.is_minor }} {{ row.is_minor.label }}</label>
+          <div class="field age-field">
+            <label for="{{ row.age.id_for_label }}">{{ row.age.label }}</label>
+            {{ row.age }}
+            {{ row.age.errors }}
+          </div>
+        </div>
+      </section>
+    {% endfor %}
+  </fieldset>
+
+  <fieldset class="equipment-fieldset">
+    <legend>Matériel</legend>
+    <label class="checkbox-label">{{ form.brings_equipment }} {{ form.brings_equipment.label }}</label>
+    {{ form.brings_equipment.errors }}
+    <div class="field equipment-description" data-equipment-description>
+      <label for="{{ form.equipment_description.id_for_label }}">{{ form.equipment_description.label }}</label>
+      {{ form.equipment_description }}
+      {{ form.equipment_description.errors }}
+    </div>
+  </fieldset>
+
+  <button class="button button-primary" type="submit">{{ submit_label }}</button>
+</form>

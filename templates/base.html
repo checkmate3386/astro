@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+  <title>{% block title %}Club d’astronomie{% endblock %}</title>
+  <link rel="stylesheet" href="/static/css/site.css">
+  <script src="/static/js/site.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="{% url 'home' %}" aria-label="Accueil du club">
+      <span class="brand-mark" aria-hidden="true">✦</span>
+      <span>Club d’astronomie</span>
+    </a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-nav">
+      Menu
+    </button>
+    <nav id="main-nav" class="main-nav" aria-label="Navigation principale">
+      <a href="{% url 'home' %}">Accueil</a>
+      {% for menu_event in events %}
+        <a href="{% url 'event-detail' menu_event.slug %}">{{ menu_event.titre }}</a>
+      {% endfor %}
+    </nav>
+  </header>
+  <main class="page-content">
+    {% if messages %}
+      <div class="messages" aria-live="polite">
+        {% for message in messages %}
+          <p class="message message-{{ message.tags }}">{{ message }}</p>
+        {% endfor %}
+      </div>
+    {% endif %}
+    {% block content %}{% endblock %}
+  </main>
+  <footer class="site-footer">
+    <p>Les données recueillies sont utilisées uniquement pour l’organisation des soirées.</p>
+  </footer>
+</body>
+</html>

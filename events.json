@@ -1,0 +1,25 @@
+[
+  {
+    "id": "obs2701",
+    "titre": "Soirée d’astronomie 22 janvier",
+    "description": "Le vendredi vendredi 22 janvier, la section astro vous propose une soirée conviviale pour découvrir l'astronomie et observer les merveilles du ciel nocturne.",
+    "details": [
+      "Rendez-vous au terrain d’observation à 20 h 30",
+      "Prévoir des vêtements chauds et une lampe rouge",
+      "Les débutants sont les bienvenus"
+    ],
+    "limite": 24
+  },
+  {
+    "id": "eve01",
+    "titre": "Atelier découverte des montures avec suivi pour télescopes",
+    "description": "Apprenez à installer, régler et utiliser un télescope avec les membres du club.",
+    "details": [
+      "Atelier accessible sans expérience préalable",
+      "Des instruments de la section seront mis à disposition",
+      "Durée prévue : environ trois heures",
+      "Possibilité d'avoir accès à du matériel plus évolué à la section après la participation à l'atelier"
+    ],
+    "limite": 16
+  }
+]
