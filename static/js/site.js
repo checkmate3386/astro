@@ -12,45 +12,45 @@
   const slides = [...document.querySelectorAll(".slide")];
   const dots = [...document.querySelectorAll(".carousel-dot")];
   const carousel = document.querySelector(".carousel");
-  if (!slides.length || !dots.length) return;
-
-  let activeIndex = 0;
-  let timer = null;
-  let paused = false;
-  const showSlide = (index) => {
-    activeIndex = (index + slides.length) % slides.length;
-    slides.forEach((slide, i) => {
-      slide.hidden = i !== activeIndex;
-      slide.classList.toggle("is-active", i === activeIndex);
+  if (slides.length && dots.length) {
+    let activeIndex = 0;
+    let timer = null;
+    let paused = false;
+    const showSlide = (index) => {
+      activeIndex = (index + slides.length) % slides.length;
+      slides.forEach((slide, i) => {
+        slide.hidden = i !== activeIndex;
+        slide.classList.toggle("is-active", i === activeIndex);
+      });
+      dots.forEach((dot, i) => {
+        dot.classList.toggle("is-active", i === activeIndex);
+        dot.setAttribute("aria-pressed", String(i === activeIndex));
+      });
+    };
+    const start = () => {
+      if (timer || slides.length < 2 || paused) return;
+      timer = window.setInterval(() => showSlide(activeIndex + 1), 5000);
+    };
+    const stop = () => {
+      if (timer) window.clearInterval(timer);
+      timer = null;
+    };
+    dots.forEach((dot) => {
+      dot.addEventListener("click", () => {
+        showSlide(Number(dot.dataset.slideIndex));
+        stop();
+        start();
+      });
     });
-    dots.forEach((dot, i) => {
-      dot.classList.toggle("is-active", i === activeIndex);
-      dot.setAttribute("aria-pressed", String(i === activeIndex));
-    });
-  };
-  const start = () => {
-    if (timer || slides.length < 2 || paused) return;
-    timer = window.setInterval(() => showSlide(activeIndex + 1), 5000);
-  };
-  const stop = () => {
-    if (timer) window.clearInterval(timer);
-    timer = null;
-  };
-  dots.forEach((dot) => {
-    dot.addEventListener("click", () => {
-      showSlide(Number(dot.dataset.slideIndex));
-      stop();
-      start();
-    });
-  });
-  if (carousel) {
-    carousel.addEventListener("mouseenter", () => { paused = true; stop(); });
-    carousel.addEventListener("mouseleave", () => { paused = false; start(); });
-    carousel.addEventListener("focusin", () => { paused = true; stop(); });
-    carousel.addEventListener("focusout", () => { paused = false; start(); });
+    if (carousel) {
+      carousel.addEventListener("mouseenter", () => { paused = true; stop(); });
+      carousel.addEventListener("mouseleave", () => { paused = false; start(); });
+      carousel.addEventListener("focusin", () => { paused = true; stop(); });
+      carousel.addEventListener("focusout", () => { paused = false; start(); });
+    }
+    showSlide(0);
+    start();
   }
-  showSlide(0);
-  start();
 
   document.querySelectorAll("[data-registration-form]").forEach((form) => {
     const countField = form.querySelector('[name="people_count"]');

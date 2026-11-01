@@ -29,7 +29,7 @@
   <fieldset class="participant-list">
     <legend>Participants</legend>
     {% for row in participant_rows %}
-      <section class="participant-card" data-participant data-index="{{ forloop.counter0 }}">
+      <section class="participant-card" data-participant data-index="{{ forloop.counter0 }}"{% if forloop.counter0 >= visible_participant_count %} hidden{% endif %}>
         <h3>Participant {{ forloop.counter }}</h3>
         {% if form_action == "update" %}
           <button type="button" class="remove-participant" data-remove-participant>

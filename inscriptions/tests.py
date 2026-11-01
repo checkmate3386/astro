@@ -87,6 +87,9 @@ class EventRegistrationTests(TestCase):
         )
 
         self.assertContains(response, "Ada")
+        self.assertContains(response, 'data-index="1">')
+        self.assertContains(response, 'data-index="2" hidden>')
+        self.assertEqual(response.context["active_tab"], "modify")
         update_data = {
             "action": "update",
             "original_email": "club@example.org",
@@ -105,6 +108,13 @@ class EventRegistrationTests(TestCase):
         self.assertRedirects(response, self.event_url)
         self.assertEqual(Participant.objects.count(), 1)
         self.assertEqual(Participant.objects.get().last_name, "Lovelace-Byron")
+
+    def test_participant_form_shows_only_selected_count(self):
+        response = self.client.get(self.event_url)
+
+        self.assertEqual(response.context["visible_participant_count"], 1)
+        self.assertContains(response, 'data-index="0">')
+        self.assertContains(response, 'data-index="1" hidden>')
 
     def test_full_event_allows_edit_without_increasing_participants(self):
         self.client.post(

@@ -33,7 +33,7 @@
   <section id="panel-signup" role="tabpanel" aria-labelledby="tab-signup"
            {% if active_tab != 'signup' %}hidden{% endif %}>
     {% if remaining_places %}
-      {% include "inscriptions/registration_form.html" with form=signup_form form_action="signup" submit_label="Confirmer mon inscription" %}
+      {% include "inscriptions/registration_form.html" with form=signup_form participant_rows=signup_participant_rows visible_participant_count=signup_visible_participant_count form_action="signup" submit_label="Confirmer mon inscription" %}
     {% else %}
       <div class="notice notice-warning">
         <p>Les inscriptions sont fermées : cette soirée a atteint sa limite de participants.</p>
@@ -57,7 +57,7 @@
       </form>
     {% else %}
       <p class="form-intro">Modifiez vos coordonnées, les participants ou le matériel apporté.</p>
-      {% include "inscriptions/registration_form.html" with form=form form_action="update" submit_label="Enregistrer les modifications" %}
+      {% include "inscriptions/registration_form.html" with form=form participant_rows=participant_rows visible_participant_count=visible_participant_count form_action="update" submit_label="Enregistrer les modifications" %}
       <form method="post" class="delete-form" data-delete-form>
         {% csrf_token %}
         <input type="hidden" name="action" value="delete">

@@ -41,20 +41,34 @@ def _registration_context(event, registration=None, form=None, active_tab="signu
     )
     form = form or RegistrationForm()
     signup_form = form if active_tab == "signup" else RegistrationForm()
+
+    def participant_rows(registration_form):
+        return [
+            {
+                "first_name": registration_form[f"first_name_{index}"],
+                "last_name": registration_form[f"last_name_{index}"],
+                "is_minor": registration_form[f"is_minor_{index}"],
+                "age": registration_form[f"age_{index}"],
+            }
+            for index in range(6)
+        ]
+
+    def visible_count(registration_form):
+        try:
+            count = int(registration_form["people_count"].value())
+        except (TypeError, ValueError):
+            return 1
+        return min(6, max(1, count))
+
     return {
         "event": event,
         "remaining_places": max(0, event["limite"] - registered_people),
         "form": form,
         "signup_form": signup_form,
-        "participant_rows": [
-            {
-                "first_name": form[f"first_name_{index}"],
-                "last_name": form[f"last_name_{index}"],
-                "is_minor": form[f"is_minor_{index}"],
-                "age": form[f"age_{index}"],
-            }
-            for index in range(6)
-        ],
+        "participant_rows": participant_rows(form),
+        "signup_participant_rows": participant_rows(signup_form),
+        "visible_participant_count": visible_count(form),
+        "signup_visible_participant_count": visible_count(signup_form),
         "registration": registration,
         "active_tab": active_tab,
     }
