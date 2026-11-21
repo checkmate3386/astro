@@ -14,14 +14,14 @@
   },
   {
     "id": "eve01",
-    "titre": "Bientôt : Atelier mise en station & astrophotographie",
-    "description": "Bientôt : Rendez-vous sur la terrasse de l'observatoire pour un atelier sur la mise en station et l'astrophotographie. Apprenez à installer, régler et utiliser un télescope avec les membres du club.",
+    "titre": "Atelier mise en station & astrophotographie",
+    "description": "Rendez-vous sur la terrasse de l'observatoire pour un atelier sur la mise en station et l'astrophotographie. Apprenez à installer, régler et utiliser un télescope avec les membres du club. Participez ensuite à une initiation ou un perfectionnement à l'astrophotographie ",
     "details": [
-      "Atelier accessible sans expérience préalable",
-      "Des instruments de la section seront mis à disposition",
+      "Ateliers accessible sans expérience préalable",
+      "Des instruments et appareils photos de la section seront mis à disposition",
       "Durée prévue : environ trois heures",
-      "Possibilité d'avoir accès à du matériel plus évolué à la section après la participation à l'atelier"
+      "Possibilité d'avoir accès à du matériel motorisé et télescopes adaptés à la photographie à la section après la participation à l'atelier"
     ],
-    "limite": 1
+    "limite": 20
   }
 ]
